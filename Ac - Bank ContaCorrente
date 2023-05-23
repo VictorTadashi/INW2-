@@ -1,0 +1,42 @@
+class ContaCorrente extends Conta{
+    constructor(numero, cpf, saldo, ativo){
+        super(numero, cpf, saldo, ativo);
+        this.numChequesSolicitados = 0;
+    }
+    solicitarCheques(){
+        if(this.numChequesSolicitados < 3){
+            this.saldo -= 30.00;// Cada cheque solicitado debita R$30.00
+            this.numChequesSolicitados++;
+            console.log("Seu cheque foi solicitado com sucesso: ");
+        }else{
+            console.log("Você atingiu o numero maximo de cheques possiveis: ")
+        }
+    }
+}
+const numero = parseInt(leia("Digite o numero da conta: "));
+const cpf = leia("Digite o seu cpf: ");
+const saldo = parseFloat(leia("Digite o saldo atual da conta: "));
+const ativo = leia("A conta esta ativa? (S/N): ") == "S";
+
+const ContaCorrente = new contaCorrente(numero, cpf, saldo, ativo);
+
+for(let x =1; x <= 10; x++){
+    console.log("nConta Corrente");
+    console.log("Saldo atual: R$ " + ContaCorrente.saldo.toFixed(2));
+
+    const op = leia("Movimento - D - debito ou C- credito: ");
+    const valor = parseFloat(leia("Valor do movimento: R$ "));
+
+    if(op == "D"){
+        ContaCorrente.debito(valor);
+    }else if (op == "C"){
+        ContaCorrente.credito(valor);
+    }
+    const continuar = leia("\nContinuar? (S/N): ");
+    if(continuar != "S"){
+        ContaCorrente.solicitarCheques();
+
+    }
+    break
+}
+console.log("\nSaldo final da conta: R$ " +ContaCorrente.saldo.toFixed(2))
